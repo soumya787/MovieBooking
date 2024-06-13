@@ -1,0 +1,40 @@
+{% extends 'navbar.html' %}
+{% block content %}
+<h1 align="center">Movie List</h1>
+{% if 'usertype' in request.session %}
+<table class="table" border="2" align="center">
+    <tr>
+        <th>MovieName</th>
+        <th>HeroName</th>
+        <th>HeroinName</th>
+        <th>Director</th>
+        <th>MovieCost</th>
+        <th>MoviePoster</th>
+        {% if request.session.usertype == 'Admin' %}
+
+            <th>Update</th>
+            <th>Delete</th>
+        {% endif %}
+    </tr>
+    {% for i in Movie %}
+        <tr>
+            <td>{{i.movie_name}}</td>
+            <td>{{i.movie_hero}}</td>
+            <td>{{i.movie_heroin}}</td>
+            <td>{{i.movie_director}}</td>
+            <td>{{i.movie_cost}}</td>
+            {% if i.movie_poster %}
+                <td><img src="{{ i.movie_poster.url }}" alt="Media Image" width="60%" height="30%"></td>
+            {% else %}
+                <td>No Image Available</td>
+            {% endif %}
+
+            {% if request.session.usertype == 'Admin' %}
+                <th><a href="">Update</a></th>
+                <th><a href="">Delete</a></th>
+        {% endif %}
+        </tr>
+    {% endfor %}
+</table>
+{% endif %}
+{% endblock %}

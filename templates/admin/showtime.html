@@ -1,0 +1,20 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+<h2 align="center">Assign Movie Shows </h2>
+<form action="showtime" method="post">
+    {% csrf_token %}
+    <div align="center">
+        MovieNames : &nbsp;&nbsp; <select name="ddlMovies">
+                                    {% for i in Movie %}<option>{{ i.movie_name }}</option> {% endfor %}
+                                  </select><br>
+        Theaters : &nbsp;&nbsp; <select name="ddlTheater">
+                                    {% for i in Theater %} <option>{{ i.theater_name }}</option>  {% endfor %}
+                                  </select><br>
+        DateTime : &nbsp;&nbsp; <input type="datetime-local" name="txtDateTime"><br>
+
+        <input type="submit" name="btnSub" value="AddShow">
+    </div>
+</form>
+
+{% endblock %}

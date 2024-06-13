@@ -1,0 +1,20 @@
+{% extends 'navbar.html' %}
+
+
+{% block content %}
+<h1 align="center">Register Page</h1>
+<div align="center">
+    <form action="reg" method="post">
+        {% csrf_token %}
+        FirstName:<input type="text" name="txtFname" id="txt_fname"><br>
+        LastName:<input type="text" name="txtLname"><br>
+        Phno:<input type="number" name="txtPhno"><br>
+        Email:<input type="email" name="txtMail"><br>
+        password:<input type="password" name="txtPswd"><br>
+        <input type="submit" name="btnReg" value="Register">
+    </form>
+
+
+</div>
+{% endblock %}
+

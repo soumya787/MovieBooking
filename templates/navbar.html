@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Navigation Bar Example</title>
+    <!-- Add Bootstrap CSS (either via CDN or by downloading and linking locally) -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">DashBoard</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            {% if 'usertype' in request.session %}
+                {% if request.session.usertype == 'Customer' %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'displaymovie' %}">MovieDetails</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'showdata' %}">BookShow</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'bookingdetails' %}">Booking Status</a>
+                    </li>
+
+                {% else %}
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'addmovie' %}">AddMovie</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'showtime' %}">AddShow</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'bookingdetails' %}">Booking Details</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'displaymovie' %}">DisplayMovie</a>
+                    </li>
+                {% endif %}
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+{% block content %}
+
+{% endblock %}
+<!-- Add Bootstrap JS (at the end of the body tag) -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+

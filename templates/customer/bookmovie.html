@@ -1,0 +1,73 @@
+{% extends 'navbar.html' %}
+
+{% block content %}
+
+    <style>
+        /* Define your CSS styles for the seats here */
+        .seat {
+            width: 40px;
+            height: 40px;
+            margin: 5px;
+        }
+        .available {
+            background-color: green;
+        }
+        .unavailable {
+            background-color: red;
+        }
+
+    </style>
+<h3 align="center">Book Ticket</h3>
+<div align="center">
+    <h1>Select Your Seats</h1>
+    <p>Screen this way</p>
+
+    <div id="seat-map">
+
+        {% for row in available_seats %}
+<!--            <label>{{ r }}</label>-->
+            {% for seat in row %}
+                {% if request.session.usertype == 'Admin' %}
+                    <button class="seat {% if seat in booked_seats %}unavailable{% else %}available{% endif %}"
+                            data-seat="{{ seat }}"
+                            onclick="toggleSeat(this)" >
+                        {{ seat }}
+                    </button>
+                {% else %}
+                    <button class="seat {% if seat in booked_seats %}disabled{% else %}available{% endif %}"
+                            data-seat="{{ seat }}"
+                            onclick="toggleSeat(this)" {% if seat in booked_seats %}disabled{% endif %} >
+                        {{ seat }}
+                    </button>
+                {% endif %}
+            {% endfor %}
+        <br>
+        {% endfor %}
+
+    </div>
+
+    <p>Selected Seats: <span id="selected-seats"></span></p>
+    <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="selected_seats" id="selected_seats_input">
+        <button type="submit">Book Selected Seats</button>
+    </form>
+
+    <script>
+        // This script would handle the logic for selecting seats
+        function toggleSeat(seatButton) {
+            seatButton.classList.toggle("unavailable");
+            seatButton.classList.toggle("available");
+
+            updateSelectedSeatsDisplay();
+        }
+
+        function updateSelectedSeatsDisplay() {
+            var selectedSeats = Array.from(document.querySelectorAll('.unavailable')).map(seat => seat.getAttribute('data-seat'));
+            document.getElementById("selected-seats").innerText = selectedSeats.join(", ");
+            document.getElementById("selected_seats_input").value = selectedSeats.join(",");
+        }
+    </script>
+</div>
+
+{% endblock %}
